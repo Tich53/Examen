@@ -1,0 +1,121 @@
+<div class="row row-md-2 row-sm-1 justify-content-around custom-line">
+  <div class="row justify-content-around custom-line wrapper mt-5">
+    <div class="card bg-light text-dark mb-3" style="max-width: 40rem">
+      <div class="text-center mt-3">
+        <h2>Scrap Results</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="table v-middle ">
+          <thead>
+            <tr class="bg-light">
+              <th class="border-top-0">Name</th>
+              <th class="border-top-0">Status</th>
+
+            </tr>
+          </thead>
+          <tbody *ngFor="let competitor of competitors">
+            <tr>
+              <td>
+                <ng-template #popContent>
+                  <div class="container-fluid" style="width: 15 rem">
+                    <div class="row row-md-2 row-sm-1 justify-content-around custom-line">
+                      <div class="card  mb-3">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ competitor.name }}</h5>
+                          <table class="table align-middle mb-0 ">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>{{ competitor.name }}</th>
+
+                                <!-- <th>Actions</th> -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Last scrap:</td>
+                                <td>
+                                  <p class="fw-normal mb-0" *ngIf="competitor.name==='Oscaro'">{{ lastScrapDateOscaro |
+                                    date:"medium" }}
+                                  </p>
+                                  <p class="fw-normal mb-0" *ngIf="competitor.name==='mister-auto.com'">
+                                    {{ lastScrapDateMisterAuto |
+                                    date:"medium" }}
+                                  </p>
+                                  <p class="fw-normal mb-0"
+                                    *ngIf="competitor.name!='Oscaro' && competitor.name!='mister-auto.com'">
+                                    No data received yet
+                                  </p>
+                                </td>
+
+                                <!-- <td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-link btn-rounded btn-sm fw-bold"
+                                            mdbRipple
+                                            rippleColor="dark"
+                                        >
+                                            Details
+                                        </button>
+                                      </td> -->
+                              </tr>
+                              <tr>
+                                <td>Status</td>
+                                <td>
+                                  <span *ngIf="competitor.name==='Oscaro'">
+                                    {{ statusOscaro }}
+                                  </span>
+                                  <span *ngIf="competitor.name==='mister-auto.com'">
+                                    {{ statusMisterAuto }}
+                                  </span>
+                                  <span *ngIf="competitor.name!='Oscaro' && competitor.name!='mister-auto.com'">
+                                    No data received yet
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Nb of scrapped items</td>
+                                <td>
+                                  <span *ngIf="competitor.name==='Oscaro'">
+                                    {{ nbScrappedItemsOscaro }}
+                                  </span>
+                                  <span *ngIf="competitor.name==='mister-auto.com'">
+                                    {{ nbScrappedItemsMisterAuto }}
+                                  </span>
+                                  <span *ngIf="competitor.name!='Oscaro' && competitor.name!='mister-auto.com'">
+                                    No data received yet
+                                  </span>
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </ng-template>
+                <a type="button" class="text-primary" [ngbPopover]="popContent">
+                  {{ competitor.name }}
+                </a>
+              </td>
+              <td>
+                <p class="card-text" style="font-size: 20px;">
+                  <span class="badge bg-{{ statusColorOscaro }} text-white rounded-pill d-inline"
+                    *ngIf="competitor.name==='Oscaro'">{{ statusOscaro }}</span>
+                  <span class="badge bg-{{ statusColorMisterAuto }} text-white rounded-pill d-inline"
+                    *ngIf="competitor.name==='mister-auto.com'">{{ statusMisterAuto }}</span>
+                  <span class="badge bg-warning text-white rounded-pill d-inline" style="color: black !important;;"
+                    *ngIf="competitor.name!='Oscaro' && competitor.name!='mister-auto.com'">No data</span>
+                </p>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>

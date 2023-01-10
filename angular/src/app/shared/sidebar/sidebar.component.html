@@ -1,0 +1,35 @@
+<aside class="left-sidebar" data-sidebarbg="skin6" *ngIf="isLoggedIn">
+  <!-- Sidebar scroll-->
+
+  <div class="scroll-sidebar">
+    <nav class="sidebar-nav border">
+      <ul id="sidebarnav">
+        <!-- User Profile-->
+        <span style="font-size: 20px">
+          <li class="sidebar-item ">
+            <a routerLink="/scrapsummary" routerLinkActive="active" ariaCurrentWhenActive="page"
+              class="sidebar-link waves-effect waves-dark sidebar-link " aria-expanded="false">
+              <span class="hide-menu">Scrap Summary</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a routerLink="/products" routerLinkActive="active" ariaCurrentWhenActive="page"
+              class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+              <span class="hide-menu">Product</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a routerLink="/competitor-product" routerLinkActive="active" ariaCurrentWhenActive="page"
+              class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+              <span class="hide-menu">Competitor Product</span>
+            </a>
+          </li>
+
+        </span>
+
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>

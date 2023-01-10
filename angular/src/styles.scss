@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+@import './bootstrap-theme/style.scss';
+
+#loginMinWidth {
+  min-width: 300px;
+}
+#inputMinWidth{
+  min-width: 250px;
+}
+.logo-text
+{
+  z-index: 2;
+}
+.popover {
+    --bs-popover-zindex: 1070;
+    --bs-popover-max-width: 580px;
+    --bs-popover-font-size: 0.875rem;
+    --bs-popover-bg: rgba(255, 255, 255, 0);
+    --bs-popover-border-width: 1px;
+    // --bs-popover-border-color: var(--bs-border-color-translucent);
+    --bs-popover-border-radius: 0.5rem;
+    --bs-popover-inner-border-radius: calc(0.5rem - 1px);
+    --bs-popover-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0);
+    --bs-popover-header-padding-x: 1rem;
+    --bs-popover-header-padding-y: 0.5rem;
+    --bs-popover-header-font-size: 1rem;
+    --bs-popover-header-color: ;
+    --bs-popover-header-bg: #f0f0f000;
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: 1rem;
+    --bs-popover-body-color: #212529;
+    --bs-popover-arrow-width: 1rem;
+    --bs-popover-arrow-height: 0.5rem;
+    --bs-popover-arrow-border: var(--bs-popover-border-color);
+    z-index: var(--bs-popover-zindex);
+    display: block;
+    max-width: var(--bs-popover-max-width);
+    font-family: var(--bs-font-sans-serif);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    white-space: normal;
+    word-spacing: normal;
+    line-break: auto;
+    font-size: var(--bs-popover-font-size);
+    word-wrap: break-word;
+    background-color: none;
+    background-clip: padding-box;
+    border: none;
+    border-radius: var(--bs-popover-border-radius);
+  }

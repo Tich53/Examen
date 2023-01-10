@@ -1,0 +1,142 @@
+<div class="row">
+  <!-- column -->
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- title -->
+        <div class="d-md-flex">
+          <div>
+            <h4 class="card-title">Result Product</h4>
+            <h5 class="card-subtitle">Scraping</h5>
+          </div>
+        </div>
+      </div>
+      <!-- title -->
+    </div>
+    <div class="table-responsive">
+      <table class="table v-middle">
+        <thead>
+          <tr class="bg-light">
+            <th class="border-top-0">Id</th>
+            <th class="border-top-0">Image</th>
+            <th class="border-top-0">Marque</th>
+            <th class="border-top-0">Ref</th>
+            <th class="border-top-0">Prix</th>
+            <th class="border-top-0">Désignation</th>
+            <th class="border-top-0">URL</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="m-r-10">
+                  {{ product.id }}
+                </div>
+              </div>
+            </td>
+            <td>
+              <img
+                class="img-responsive img-thumbnail"
+                src="{{ product.image }}"
+                alt="imageproduct"
+              />
+            </td>
+            <td>
+              <h4 class="m-b-0 font-16">{{ product.cleaned_brand }}</h4>
+            </td>
+            <td>
+              {{ product.cleaned_reference }}
+            </td>
+            <td>{{ product.price }}€</td>
+            {{
+              product.price
+            }}€
+            <td>
+              <h5 class="m-b-0">
+                <label class="label label-success">en stock</label>
+              </h5>
+            </td>
+            <td><a href="{{ product.url }}">click here</a></td>
+          </tr>
+
+          <!--<tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="m-r-10">
+                      <a class="btn btn-circle d-flex btn-orange text-white"
+                        >MA</a
+                      >
+                    </div>
+                    <div class="">
+                      <h4 class="m-b-0 font-16">Monster Admin</h4>
+                    </div>
+                  </div>
+                </td>
+                <td>Single Use</td>
+                <td>Venessa Fern</td>
+                <td>
+                  <label class="label label-info">Vue Js</label>
+                </td>
+                <td>46</td>
+                <td>356</td>
+                <td>
+                  <h5 class="m-b-0">$2850.06</h5>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="m-r-10">
+                      <a class="btn btn-circle d-flex btn-success text-white"
+                        >MP</a
+                      >
+                    </div>
+                    <div class="">
+                      <h4 class="m-b-0 font-16">Material Pro Admin</h4>
+                    </div>
+                  </div>
+                </td>
+                <td>Single Use</td>
+                <td>John Doe</td>
+                <td>
+                  <label class="label label-success">Bootstrap</label>
+                </td>
+                <td>46</td>
+                <td>356</td>
+                <td>
+                  <h5 class="m-b-0">$2850.06</h5>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="m-r-10">
+                      <a class="btn btn-circle d-flex btn-purple text-white"
+                        >AA</a
+                      >
+                    </div>
+                    <div class="">
+                      <h4 class="m-b-0 font-16">Ample Admin</h4>
+                    </div>
+                  </div>
+                </td>
+                <td>Single Use</td>
+                <td>John Doe</td>
+                <td>
+                  <label class="label label-purple">React</label>
+                </td>
+                <td>46</td>
+                <td>356</td>
+                <td>
+                  <h5 class="m-b-0">$2850.06</h5>
+                </td>
+              </tr>
+            -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

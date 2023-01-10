@@ -1,0 +1,200 @@
+<div class="row">
+  <!-- column -->
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- title -->
+        <div class="d-md-flex">
+          <div>
+            <button class="btn btn-lg btn-outline-primary" (click)="open(content)" style="margin-bottom: 15px;">
+              Filter
+            </button>
+
+            <span *ngIf="name">{{ name }} </span>
+            <span *ngIf="cleaned_reference">
+              Cleaned ref: {{ cleaned_reference }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="cleanedRefDelete()"></button></span>
+            <span *ngIf="raw_reference">Raw ref: {{ raw_reference }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="rawRefDelete()"></button></span>
+            <span *ngIf="cleaned_brand">Cleaned brand: {{ cleaned_brand }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="cleanedBrandDelete()"></button></span>
+            <span *ngIf="raw_brand">Raw brand: {{ raw_brand }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="rawBrandDelete()"></button></span>
+            <span *ngIf="min_price"> Min price: {{ min_price }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="minPriceDelete()"></button></span>
+            <span *ngIf="max_price">Max price: {{ max_price }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="maxPriceDelete()"></button></span>
+            <span *ngIf="filteredCompetitorsNames[0]">
+              <span *ngFor="let filteredCompetitorName of filteredCompetitorsNames">
+                {{ filteredCompetitorName }}
+
+                <button type="button" class="btn-close" aria-label="Close"
+                  (click)="filteredCompetitorDelete(filteredCompetitorName)"></button></span>
+            </span>
+
+
+            <p class="nb_result">{{ nbTotalProducts }} competitor products</p>
+          </div>
+        </div>
+        <!-- title -->
+      </div>
+      <div class="table-responsive">
+        <table class="table v-middle">
+          <thead>
+            <tr class="bg-light">
+              <th class="border-top-0">Cleaned reference</th>
+              <th class="border-top-0">Raw reference</th>
+              <th class="border-top-0">Cleaned brand</th>
+              <th class="border-top-0">raw brand</th>
+              <th class="border-top-0">Cleaned name</th>
+              <th class="border-top-0">Price</th>
+              <th class="border-top-0">Last scraped</th>
+              <th class="border-top-0">In stock</th>
+              <th class="border-top-0">Competitor</th>
+              <th class="border-top-0">URL</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let competitorProduct of hydraCompetitorProducts">
+            <tr>
+              <td>
+                {{ competitorProduct.cleaned_reference }}
+              </td>
+
+              <td>
+                {{ competitorProduct.raw_reference }}
+              </td>
+              <td>
+                {{ competitorProduct.cleaned_brand }}
+              </td>
+              <td>
+                {{ competitorProduct.raw_brand }}
+              </td>
+              <td>
+                {{ competitorProduct.cleaned_name }}
+              </td>
+              <td>{{ competitorProduct.price }}€</td>
+              <td>
+                {{ competitorProduct.createdAt | date: "short" }}
+              </td>
+              <td>
+                {{ competitorProduct.is_in_stock }}
+              </td>
+              <td>
+                {{ competitorProduct.competitor.name }}
+              </td>
+              <td>
+                <a href="{{ competitorProduct.url }}" target="_blank">{{
+                  competitorProduct.url
+                  }}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-pagination [totalItems]="nbTotalProducts" (currentPage)="onPageChange($event)"></app-pagination>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Refine your search</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <form class="form-horizontal form-material mx-2" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div ngModelGroup="filterData">
+          <!-- <div class="form-group">
+            <label for="name" class="col-md-12">Product name</label>
+            <div class="col-md-12">
+              <input
+                type="text"
+                placeholder="Product name"
+                class="form-control form-control-line"
+                name="name"
+                id="name"
+                ngModel
+                #cleaned_reference="ngModel"
+              />
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label for="cleaned_reference" class="col-md-12">Cleaned Ref</label>
+            <div class="col-md-12">
+
+              <input type="text" placeholder="Cleaned Ref" class="form-control form-control-line"
+                name="cleaned_reference" id="cleaned_reference" [(ngModel)]="cleaned_reference" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="raw_reference" class="col-md-12">Raw Ref</label>
+            <div class="col-md-12">
+
+              <input type="text" placeholder="Raw Ref" class="form-control form-control-line" name="raw_reference"
+                id="raw_reference" [(ngModel)]="raw_reference" />
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cleaned_brand" class="col-md-12">Cleaned Brand</label>
+            <div class="col-md-12">
+
+              <input type="text" placeholder="Cleaned Brand" class="form-control form-control-line" name="cleaned_brand"
+                id="cleaned_brand" [(ngModel)]="cleaned_brand" />
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="raw_brand" class="col-md-12">Raw Brand</label>
+            <div class="col-md-12">
+
+              <input type="text" placeholder="Raw Brand" class="form-control form-control-line" name="raw_brand"
+                id="raw_brand" [(ngModel)]="raw_brand" />
+
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label for="min_price" class="col-md-12">Min Price</label>
+              <div class="col-md-12">
+                <input type="number" placeholder="Min Price" class="form-control form-control-line" name="min_price"
+                  id="min_price" [(ngModel)]="min_price" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="max_price" class="col-md-12">Max Price</label>
+              <div class="col-md-12">
+                <input type="number" placeholder="Max Price" class="form-control form-control-line" name="max_price"
+                  id="max_price" [(ngModel)]="max_price" />
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let competitor of currentUserCompetitors">
+            <div class="form-check form-group">
+
+              <input mdbCheckbox class="form-check-input" type="checkbox" value="{{ competitor.id }}"
+                name="{{ competitor.id }}" [id]="competitor.id" [(ngModel)]="competitor.Checked" (change)="
+                  OnCheckboxSelect(competitor.id, $event, competitor.name)
+                " />
+              <label class="form-check-label" [for]="competitor.id">
+
+                {{ competitor.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button queryParamsHandling="merge" type="submit" class="btn btn-outline-dark" (click)="reset()">
+            Reset
+          </button>
+          <button queryParamsHandling="merge" type="submit" class="btn btn-outline-dark" (click)="c('Save click')">
+            Apply Filter
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

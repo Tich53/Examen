@@ -1,0 +1,231 @@
+<div class="row">
+  <!-- column -->
+  <div class="col-12">
+    <div class="card">
+
+      <div class="card-body">
+        <!-- title -->
+        <div class="d-md-flex">
+          <div>
+
+            <button class="btn btn-lg btn-outline-primary" (click)="open(content)" style="margin-bottom: 15px;">
+              Filter
+            </button>
+            <span *ngIf="name">{{ name }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="nameDelete()"></button>
+            </span>
+
+            <span *ngIf="cleaned_reference">Cleaned ref: {{ cleaned_reference }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="cleanedRefDelete()"></button>
+            </span>
+            <span *ngIf="raw_reference">Raw ref: {{ raw_reference }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="rawRefDelete()"></button>
+            </span>
+            <span *ngIf="cleaned_brand">Cleaned brand: {{ cleaned_brand }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="cleanedBrandDelete()"></button>
+            </span>
+            <span *ngIf="raw_brand">Raw brand: {{ raw_brand }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="rawBrandDelete()"></button>
+            </span>
+            <span *ngIf="min_price"> Min price: {{ min_price }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="minPriceDelete()"></button>
+            </span>
+            <span *ngIf="max_price">Max price: {{ max_price }}
+              <button type="button" class="btn-close" aria-label="Close" (click)="maxPriceDelete()"></button>
+            </span>
+            <span *ngIf="filteredTagsName[0]">Tags:
+              <span *ngFor="let filteredTagName of filteredTagsName; let i = index"> {{ filteredTagName }}
+                <button type="button" class="btn-close" aria-label="Close"
+                  (click)="filteredTagsDelete(filteredTagName)"></button>
+              </span>
+            </span>
+            <p class="nb_result">{{ nbTotalProducts }} products</p>
+
+
+
+          </div>
+        </div>
+        <!-- title -->
+      </div>
+      <div class="table-responsive">
+        <table class="table v-middle">
+          <thead>
+            <tr class="bg-light">
+              <th class="border-top-0">Product</th>
+              <th class="border-top-0">Cleaned brand</th>
+              <th class="border-top-0">Raw brand</th>
+              <th class="border-top-0">Cleaned Ref</th>
+              <th class="border-top-0">Raw Ref</th>
+              <th class="border-top-0">Price</th>
+              <th class="border-top-0">Actions</th>
+              <th class="border-top-0">Tag</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let product of hydraProducts">
+            <tr>
+              <td>
+                {{
+                product.name
+                }}
+              </td>
+              <td>{{ product.cleaned_brand }}</td>
+              <td>{{ product.raw_brand }}</td>
+              <td> {{ product.cleaned_reference }}</td>
+              <td> {{ product.raw_reference }}</td>
+              <td>{{ product.price }} €</td>
+              <!-- website link should be on the right for UX not Tag -->
+              <td>
+                <a href="{{ productItemUrl }}/{{ product.id }}" style="margin-right: 15px;">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-graph-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z" />
+                  </svg>
+                </a>
+
+                <a href="{{ product.url }}" target="_blank">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z" />
+                  </svg>
+                </a>
+
+              </td>
+              <td>
+            <tr *ngFor="let tag of product.tags">
+              {{
+              tag.name
+              }}
+            </tr>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-pagination [totalItems]="nbTotalProducts" (currentPage)="onPageChange($event)"></app-pagination>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Refine your search</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <form class="form-horizontal form-material mx-2" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div ngModelGroup="filterData">
+          <div class="form-group">
+            <label for="name" class="col-md-12">Product name</label>
+            <div class="col-md-12">
+              <input type="text" placeholder="Product name" class="form-control form-control-line" name="name" id="name"
+                [(ngModel)]="name" />
+            </div>
+          </div>
+          <div class=" form-group">
+            <label for="cleaned_reference" class="col-md-12">Cleaned Ref</label>
+            <div class="col-md-12">
+
+              <input type="text" placeholder="Cleaned Ref" class="form-control form-control-line"
+                name="cleaned_reference" id="cleaned_reference" [(ngModel)]="cleaned_reference" />
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="raw_reference" class="col-md-12">Raw ref</label>
+            <div class="col-md-12">
+              <input type="text" placeholder="Raw reference" class=" form-control form-control-line"
+                name="raw_reference" id="raw_reference" [(ngModel)]="raw_reference" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cleaned_brand" class="col-md-12">Cleaned
+              Brand</label>
+            <div class="col-md-12">
+              <input type="text" placeholder="Cleaned Brand" class="form-control form-control-line" name="cleaned_brand"
+                id="cleaned_brand" [(ngModel)]="cleaned_brand" />
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label for="raw_brand" class="col-md-12">Raw
+                Brand</label>
+              <div class="col-md-12">
+                <input type="text" placeholder="Raw brand" class="form-control form-control-line" name="raw_brand"
+                  id="raw_brand" [(ngModel)]="raw_brand" />
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label for="min_price" class="col-md-12">Min Price</label>
+                <div class="col-md-12">
+
+                  <input type="number" placeholder="Min Price" class="form-control form-control-line" name="min_price"
+                    id="min_price" [(ngModel)]="min_price" />
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="max_price" class="col-md-12">Max Price</label>
+                <div class="col-md-12">
+
+                  <input type="number" placeholder="Max Price" class="form-control form-control-line" name="max_price"
+                    id="max_price" [(ngModel)]="max_price" />
+
+                </div>
+              </div>
+            </div>
+            <h6 class="mt-3">Tags</h6>
+            <div *ngFor="let tag of tags">
+              <div class="form-check form-group">
+
+                <input mdbCheckbox class="form-check-input" type="checkbox" value="{{ tag.id }}" name="{{ tag.name }}"
+                  [id]="tag.id" [(ngModel)]="tag.Checked" (change)="OnCheckboxSelect(tag.id, tag.name, $event)" />
+                <label class="form-check-label" [for]="tag.id">{{ tag.name }}
+
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label class="col-md-12"></label>
+          <div class="col-md-12">
+            <input
+              type="number"
+              placeholder="Price"
+              class="form-control form-control-line"
+            />
+          </div>
+        </div>
+
+         <div class="form-group">
+              <label class="col-sm-12">Select Country</label>
+              <div class="col-sm-12">
+                <select class="form-select shadow-none form-control-line">
+                  <option>London</option>
+                  <option>India</option>
+                  <option>Usa</option>
+                  <option>Canada</option>
+                  <option>Thailand</option>
+                </select>
+              </div>
+            </div> -->
+        <div class="modal-footer">
+          <button queryParamsHandling="merge" type="submit" class="btn btn-outline-dark" (click)="reset()">
+            Reset
+          </button>
+          <button queryParamsHandling="merge" type="submit" class="btn btn-outline-dark" (click)="c('Save click')">
+            Apply Filter
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,31 @@
+installation supplementaire
+
+POWERSHELL (administrateur)
+chocolatey (Powershell en admin):
+ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco install openssl
+
+ANGULAR
+cd angular
+npm install
+npm uninstall @swimlane/ngx-charts
+npm install @swimlane/ngx-charts --save
+npm i --save-dev @types/d3-scale
+npm i --save-dev @types/d3-selection
+ng add @ng-bootstrap/ng-bootstrap
+
+
+SYMFONY
+cd symfony
+symfony composer install
+symfony console doctrine:database:drop --force
+symfony console doctrine:database:create
+symfony console doctrine:schema:update --force
+symfony console doctrine:fixtures:load
+symfony console lexik:jwt:generate-keypair
+
+OPTIONNEL
+yarn install
+yarn encore dev
+symfony composer require lexik/jwt-authentication-bundle
+

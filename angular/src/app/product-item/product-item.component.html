@@ -1,0 +1,21 @@
+<h1>{{ productName }} - {{ rawBrand }} - Ref {{ rawReference }}</h1>
+<p class="price">Prix catalogue {{ productPrice }} €</p>
+
+<app-charts></app-charts>
+<table class="table v-middle">
+  <thead>
+    <tr class="bg-light">
+      <th class="border-top-0">Competitors</th>
+      <th class="border-top-0">Price</th>
+      <th class="border-top-0">Last update on:
+  </thead>
+  <tbody *ngFor="let competitorProduct of competitorProducts">
+    <tr>
+      <td>
+        {{ competitorProduct.competitor.name }}
+      </td>
+      <td>{{ competitorProduct.price }}€</td>
+      <td>{{ competitorProduct.updatedAt | date: "longDate" }}</td>
+    </tr>
+  </tbody>
+</table>
